@@ -37,19 +37,19 @@ score = 0
 
 # On game start clicking this button will start playing
 def start_button():
-    global GAME_STATE, score,bg_fg
+    global GAME_STATE, score, bg_fg
     mx, my = pygame.mouse.get_pos()
     if 351 <= mx <= 448 and 354 <= my <= 440:
         score = 0
         pygame.mixer.Sound.play(JUMP)
         GAME_STATE = 'active'
 
-    #check the click of mute button
+    # check the click of mute button
     if 33 <= mx <= 71 and 539 <= my <= 578:
         if pygame.mixer.music.get_busy():
             pygame.mixer.Sound.play(JUMP)
             pygame.mixer.music.stop()
-    #check the click of sound button
+    # check the click of sound button
     if 733 <= mx <= 773 and 538 <= my <= 581:
         pygame.mixer.Sound.play(JUMP)
         pygame.mixer.music.play(loops=-1)
@@ -58,7 +58,8 @@ def start_button():
 def ready_state():
     display_intro()
 
-#main game starts
+
+# main game starts
 def active_state():
     global GAME_STATE, score, scores
     disply_background()
@@ -145,6 +146,7 @@ def display_enemy():
     if len(enemy) != 0:
         enemy[0].display(screen)
 
+
 def disply_background():
     screen.blit(BACKGROUND, (0, 0))
 
@@ -162,7 +164,8 @@ def disply_running_foreground():
     screen.blit(GROUND, (ground_x, 469))
     screen.blit(GROUND, (800 + ground_x, 469))
 
-#change the background and foreground after some times
+
+# change the background and foreground after some times
 def change_bg_fg():
     global bg_fg, BACKGROUND, GROUND
     if bg_fg > 3:
@@ -182,39 +185,34 @@ def change_bg_fg():
         bg_fg += 1
 
 
-
 def store_high_score():
     global score
     h_score = get_high_score()
-    s= int(score)
+    s = int(score)
     h = int(h_score)
     if h < s:
         with open("highest_score.txt", "w") as f:
             f.write(str(s))
 
 
-#retrive high score
+# retrive high score
 def get_high_score():
     try:
         with open("highest_score.txt", "r") as f:
             return f.read()
     except:
-
         with open("highest_score.txt", "w+") as f:
             f.write('0')
             with open("highest_score.txt", "r") as f:
-                return  f.read()
+                return f.read()
 
 
-#creating dino and cloud
-
-
+# creating dino and cloud
 dino_object = dino_class.Dino()
 cloud = dino_class.Clouds(screen)
 get_high_score()
 
-
-#game loop
+# game loop
 while True:
     if GAME_STATE == 'ready':
         ready_state()

@@ -1,7 +1,9 @@
-#dino game object class
+# dino game object class
 import pygame, random
+
 CANVAS_WIDTH = 950
 CANVAS_HEIGHT = 600
+
 
 class Dino:
     def __init__(self):
@@ -29,16 +31,13 @@ class Dino:
             if self.jump_count < 0:
                 self.neg_value = -1
             self.rect.y -= (self.jump_count ** 2) * self.gravity * self.neg_value
-            self.jump_count -= .3
+            self.jump_count -= .25
         else:
-            self.rect.y += self.gravity
-            self.gravity += .8
-            if self.rect.y >= self.dino_pos_y:
-                self.is_jumping = False
-                self.is_running = True
-                self.jump_count = 10
-                self.gravity = 0.1
-                self.rect.y = self.dino_pos_y
+            self.is_jumping = False
+            self.is_running = True
+            self.jump_count = 10
+            self.gravity = 0.1
+            self.rect.y = self.dino_pos_y
 
     def dino_lean(self):
         self.rect.y = 400
@@ -75,10 +74,11 @@ class Dino:
 class Cactus:
     def __init__(self):
         self.cactus_pos_x = CANVAS_WIDTH + random.randint(-250, 50)
-        self.cactus_pos_y = CANVAS_HEIGHT - 195
+        # self.cactus_pos_y = CANVAS_HEIGHT - 195
+        self.cactus_pos_y = CANVAS_HEIGHT - 230
         self.cactus_speed = 3.5
-        self.cactus_random_image_number = random.randint(0, 5)
-        self.cactus_image = pygame.image.load(f"assets/images/{self.cactus_random_image_number}.png").convert_alpha()
+        self.cactus_random_image_number = random.randint(0, 6)
+        self.cactus_image = pygame.image.load(f"assets/images/t{self.cactus_random_image_number}.png").convert_alpha()
         self.rect = self.cactus_image.get_rect()
         self.rect.x = self.cactus_pos_x
         self.rect.y = self.cactus_pos_y
